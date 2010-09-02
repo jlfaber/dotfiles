@@ -1,2 +1,18 @@
 dot.gdbinit - awesome gdbinit that includes apr support
-dot.vimrc   - uhuh
+
+dot.vim     - my vim plugins/colors I use.
+dot.vimrc   - my vimrc with a bunch of cool mappings and functions.
+
+vimrc maps:
+ctrl+a+n:     new horiz window
+ctrl+a+v:     new vertical window
+<tab><tab>:   iterate through windows
++:            increase vertical window size by 1
+_:            decrease vertical window size by 1
+=:            increase horizontal window size by 1
+-:            decrease horizontal window size by 1
+<f2>:         open nerdtree plugin
+<f3>:         turns on and off line numbers
+<f4>:         Opens the last session from session manager plugin
+shift+s+l     Lists the sessions from the session manager plugin
+shift+s+s     Save the current session via the session manager plugin

@@ -1,17 +1,22 @@
-"set t_Co=256
 syntax on
-"colorscheme xoria256
-"colorscheme desert256
-"colorscheme zenburn
-set number
-"set cursorline
-"colo chlordane
-
+set title
+set nocompatible
+set mouse-=a
 set textwidth=80
 set history=50
 set background=dark
-"setlocal spell spelllang=en_us
-"autocmd BufNewFile,BufRead *.txt,*.html,README set spell
+set backspace=2
+set noea
+
+if $TERM == 'xterm-256color'
+	set t_Co=256
+	colorscheme jellybeans
+	set cursorline
+  set number
+  hi CursorLine   cterm=NONE ctermbg=237
+  autocmd WinEnter * setlocal cursorline
+  autocmd WinLeave * setlocal nocursorline
+endif
 
 if has("cscope")
    set csprg=/usr/bin/cscope
@@ -25,12 +30,14 @@ if has("cscope")
    elseif $CSCOPE_DB != ""
       cs add $CSCOPE_DB
    endif
-   set csverb
-endif
 
+   set csverb
+
+endif
 
 autocmd FileType * set tabstop=2|set shiftwidth=2|set noexpandtab
 autocmd FileType python set nospell tabstop=4|set shiftwidth=4|set expandtab
+au BufNewFile,BufRead *.tac setfiletype python 
 
 augroup filetype
         au!
@@ -38,13 +45,30 @@ augroup filetype
 augroup END
 
 augroup C
-				autocmd BufRead *.c set cinoptions={.5s,:.5s,+.5s,t0,g0,^-2,e-2,n-2,p2s,(0,=.5s formatoptions=croql cindent shiftwidth=4 tabstop=8
         autocmd BufRead *.c set cindent shiftwidth=4 tabstop=8 noexpandtab
+        autocmd BufRead *.h set cindent shiftwidth=4 tabstop=8 noexpandtab
         autocmd BufRead *.d set cindent shiftwidth=4 tabstop=8 noexpandtab
 augroup END
 
 set viminfo='10,\"100,:20,%,n~/.viminfo
     au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm'\"")|else|exe "norm $"|endif|endif
 
-set backspace=2
-set nocompatible
+function Toggle_numbers() 
+	if &number 
+		set nonumber
+	else
+		set number
+	endif
+endfunction
+
+nmap + : vertical res +1<CR>
+nmap _ : vertical res -1<CR>
+nmap = :res +1<CR>
+nmap - :res -1<CR>
+nmap <C-a><C-n> :new<CR>
+nmap <C-a><C-v> :vnew<CR>
+nmap <Tab><Tab> :winc w<CR> 
+nmap <F3> :call Toggle_numbers()<CR>
+nmap <F4> :SessionOpenLast<CR>
+nmap <S-s><S-l> :SessionList<CR>
+nmap <S-s><S-s> :SessionSave<CR>
