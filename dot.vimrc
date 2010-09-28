@@ -7,6 +7,8 @@ set history=50
 set background=dark
 set backspace=2
 set noea
+set tabstop=4
+set noexpandtab
 
 if $TERM == 'xterm-256color'
 	set t_Co=256
