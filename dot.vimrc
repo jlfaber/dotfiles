@@ -87,3 +87,5 @@ nmap <C-a><C-v> :vnew<CR>
 nmap <Tab><Tab> :winc w<CR> 
 nmap <F3> :call Toggle_numbers()<CR>
 nmap <S-s><S-s> :SessionSave<CR>
+nmap <F4> :SessionOpenLast<CR>
+nmap <S-s><S-l> :SessionList<CR>
