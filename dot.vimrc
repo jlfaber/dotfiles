@@ -35,6 +35,17 @@ if has("cscope")
 
 endif
 
+function s:Template(argument)
+  %d
+  if (a:argument == "c")
+    0r ~/.vim/skeletons/template.c
+    set ft=c
+  endif
+  silent %!~/.vim/do_header %
+endfunction
+
+command! -nargs=1 Template call s:Template(<f-args>)
+
 autocmd FileType * set tabstop=2|set shiftwidth=2|set noexpandtab
 autocmd FileType python set nospell tabstop=4|set shiftwidth=4|set expandtab
 au BufNewFile,BufRead *.tac setfiletype python 
@@ -45,9 +56,15 @@ augroup filetype
 augroup END
 
 augroup C
-        autocmd BufRead *.c set cindent shiftwidth=4 tabstop=8 noexpandtab
-        autocmd BufRead *.h set cindent shiftwidth=4 tabstop=8 noexpandtab
-        autocmd BufRead *.d set cindent shiftwidth=4 tabstop=8 noexpandtab
+  if has("autocmd")
+    augroup autoinsert
+    au!
+      autocmd BufNewFile *.c call s:Template("c")
+    augroup END
+  endif
+  autocmd BufRead *.c set cindent shiftwidth=4 tabstop=8 noexpandtab
+  autocmd BufRead *.h set cindent shiftwidth=4 tabstop=8 noexpandtab
+  autocmd BufRead *.d set cindent shiftwidth=4 tabstop=8 noexpandtab
 augroup END
 
 set viminfo='10,\"100,:20,%,n~/.viminfo
@@ -69,6 +86,4 @@ nmap <C-a><C-n> :new<CR>
 nmap <C-a><C-v> :vnew<CR>
 nmap <Tab><Tab> :winc w<CR> 
 nmap <F3> :call Toggle_numbers()<CR>
-nmap <F4> :SessionOpenLast<CR>
-nmap <S-s><S-l> :SessionList<CR>
 nmap <S-s><S-s> :SessionSave<CR>
