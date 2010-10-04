@@ -18,6 +18,8 @@ if $TERM == 'xterm-256color'
   hi CursorLine   cterm=NONE ctermbg=237
   autocmd WinEnter * setlocal cursorline
   autocmd WinLeave * setlocal nocursorline
+  autocmd WinEnter * setlocal number
+  autocmd WinLeave * setlocal nonumber
 endif
 
 function s:Template(argument)
