@@ -25,6 +25,9 @@ function s:Template(argument)
   if (a:argument == "c")
     0r ~/.vim/skeletons/template.c
     set ft=c
+  elseif (a:argument == "h")
+    0r ~/.vim/skeletons/template.h
+    set ft=c
   endif
   silent %!~/.vim/do_header %
 endfunction
@@ -45,6 +48,7 @@ augroup C
     augroup autoinsert
     au!
       autocmd BufNewFile *.c call s:Template("c")
+      autocmd BufNewFile *.h call s:Template("h")
     augroup END
   endif
   autocmd BufRead *.c set cindent shiftwidth=4 tabstop=8 noexpandtab
