@@ -80,3 +80,5 @@ nmap <F3> :call Toggle_numbers()<CR>
 nmap <S-s><S-s> :SessionSave<CR>
 nmap <F4> :SessionOpenLast<CR>
 nmap <S-s><S-l> :SessionList<CR>
+nmap <F5> :silent1,$!uncrustify -q<CR><CR>
+nmap <C-d><C-d> :Dox<CR>

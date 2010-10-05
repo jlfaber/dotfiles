@@ -14,3 +14,8 @@ if [ -f "~/.gdbinit" ]
 then
    cp dot.gdbinit ~/.gdbinit
 fi
+
+if [ -f "~/.uncrustify.cfg" ]
+then 
+   cp dot.uncrustify.cfg ~/.uncrustify.cfg
+fi
