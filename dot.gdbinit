@@ -6,7 +6,47 @@ define dump_lua_stack
 	set $lua_top = lua_gettop($arg0) 
 
 	while $i <= $lua_top
-		printf "[%d] = %d (%s)\n", $i, lua_type($arg0, $i), lua_typename($arg0, $i)
+		set $typename = "nil"
+		set $t = lua_type($arg0, $i)
+		
+		if $t == 0 
+			set $typename = "nil"
+		end
+
+		if $t == 1
+			set $typename = "bool"
+		end
+
+		if $t == 2
+			set $typename = "listuser"
+		end
+
+		if $t == 3
+			set $typename = "number"
+		end
+
+		if $t == 4
+			set $typename = "string"
+		end
+
+		if $t == 5
+			set $typename = "table"
+		end
+
+		if $t == 6
+			set $typename = "function"
+		end
+
+		if $t == 7
+			set $typename = "userdata"
+		end
+
+		if $t == 8 
+			set $typename = "thread"
+		end  
+
+		
+		printf "[%d] = %d (%s)\n", $i, lua_type($arg0, $i), $typename 
 		set $i = $i + 1
 	end
 end
