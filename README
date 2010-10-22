@@ -19,3 +19,6 @@ shift+s+l     Lists the sessions from the session manager plugin
 shift+s+s     Save the current session via the session manager plugin
 ctrl+f+f      CScope find all referenced symbols of highlighted function.
 ctrl+d+d      Add doxygen header to function under curor
+tt            Create a new tab
+tn            Go to next tab
+tp            Go to prev tab
