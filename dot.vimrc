@@ -82,3 +82,9 @@ nmap <F4> :SessionOpenLast<CR>
 nmap <S-s><S-l> :SessionList<CR>
 nmap <F5> :silent1,$!uncrustify -q<CR><CR>
 nmap <C-d><C-d> :Dox<CR>
+nmap ff zA 
+nmap FF zR
+
+nmap tt :tabnew<CR>
+nmap tp :tabprev<CR>
+nmap tn :tabnext<CR>
