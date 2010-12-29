@@ -5,8 +5,10 @@ then
    cp dot.author ~/.author
 fi
 
-cp ~/.vimrc ~/.vimrc.bak
+mv ~/.vimrc ~/.vimrc.bak
 cp ./dot.vimrc ~/.vimrc
+mv ~/.vim ~/.vim.bak
+
 mkdir ~/.vim
 cp -R ./dot.vim ~/.vim 
 
