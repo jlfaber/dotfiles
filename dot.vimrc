@@ -43,6 +43,7 @@ au BufNewFile,BufRead *.tac setfiletype python
 augroup filetype
         au!
         au! BufRead,BufNewFile *.pc    set filetype=cpp
+				au! BufRead,BufNewFile *.json  set filetype=json
 augroup END
 
 augroup C

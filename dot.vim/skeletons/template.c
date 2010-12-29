@@ -3,10 +3,10 @@
  * Description: FIXME
  *
  * Author: %%AUTHOR%%
+ * Content: FOOBAR 
  *
- * Author: MANDIANT Product Development <proddev@mandiant.com>
  * Copyright:
- *      Copyright (C) %%YEAR%%, MANDIANT, Inc.
+ *      Copyright (C) %%YEAR%%, FOOBAR, Inc.
  *      See file COPYING for details
  *
  * Notes:
