@@ -1,7 +1,16 @@
 set print pretty on
 display/i $pc
 
-define dump_lua_stack
+define dump_zt_table
+	set $table_addr = $arg0
+	set $name = (char *)(*$table_addr) 
+
+	printf "tbl start addr = %p\n", $table_addr
+  printf "tbl name       = %s\n", $name
+end
+
+	
+define dump_apr_lua_stack
 	set $i       = 1
 	set $lua_top = lua_gettop($arg0) 
 
@@ -52,7 +61,7 @@ define dump_lua_stack
 end
 	
 
-define dump_table
+define dump_apr_table
     set $t = (apr_table_entry_t *)((apr_array_header_t *)$arg0)->elts
     set $n = ((apr_array_header_t *)$arg0)->nelts
     set $i = 0
@@ -65,11 +74,11 @@ define dump_table
 	set $i = $i + 1
     end
 end
-document dump_table
+document dump_apr_table
     Print the key/value pairs in a table.
 end
 
-define dump_string_array
+define dump_apr_string_array
     set $a = (char **)((apr_array_header_t *)$arg0)->elts
     set $n = (int)((apr_array_header_t *)$arg0)->nelts
     set $i = 0
@@ -78,7 +87,7 @@ define dump_string_array
 	set $i = $i + 1
     end
 end
-document dump_string_array
+document dump_apr_string_array
     Print all of the elements in an array of strings.
 end
 
@@ -111,7 +120,7 @@ define print_bkt_datacol
     printf $arg1, $arg2
 end
 
-define dump_bucket_ex
+define dump_apr_bucket_ex
     # arg0 == bucket
     # arg1 == suppress header?
     set $bucket = (struct apr_bucket *)$arg0
@@ -237,14 +246,14 @@ define dump_bucket_ex
 
 end
 
-define dump_bucket
-    dump_bucket_ex $arg0 0
+define dump_apr_bucket
+    dump_apr_bucket_ex $arg0 0
 end
-document dump_bucket
+document dump_apr_bucket
     Print bucket info
 end
 
-define dump_brigade
+define dump_apr_brigade
     set $bb = (apr_bucket_brigade *)$arg0
     set $bucket = $bb->list.next
     set $sentinel = ((char *)((&($bb->list)) \
@@ -263,17 +272,17 @@ define dump_brigade
     set $j = 0
     while $bucket != $sentinel
         printf "%2d", $j
-        dump_bucket_ex $bucket 1
+        dump_apr_bucket_ex $bucket 1
         set $j = $j + 1
         set $bucket = $bucket->link.next
     end
     printf "end of brigade\n"
 end
-document dump_brigade
+document dump_apr_brigade
     Print bucket brigade info
 end
 
-define dump_filters
+define dump_apr_filters
     set $f = $arg0
     while $f
         printf "%s(0x%lx): ctx=0x%lx, r=0x%lx, c=0x%lx\n", \
@@ -282,39 +291,39 @@ define dump_filters
         set $f = $f->next
     end
 end
-document dump_filters
+document dump_apr_filters
     Print filter chain info
 end
 
-define dump_process_rec
+define dump_apr_process_rec
     set $p = $arg0
     printf "process_rec=0x%lx:\n", (unsigned long)$p
     printf "   pool=0x%lx, pconf=0x%lx\n", \
            (unsigned long)$p->pool, (unsigned long)$p->pconf
 end
-document dump_process_rec
+document dump_apr_process_rec
     Print process_rec info
 end
 
-define dump_server_rec
+define dump_apr_server_rec
     set $s = $arg0
     printf "name=%s:%d\n", \
             $s->server_hostname, $s->port
-    dump_process_rec($s->process)
+    dump_apr_process_rec($s->process)
 end
-document dump_server_rec
+document dump_apr_server_rec
     Print server_rec info
 end
 
-define dump_servers
+define dump_apr_servers
     set $s = $arg0
     while $s
-        dump_server_rec($s)
+        dump_apr_server_rec($s)
         printf "\n"
         set $s = $s->next
     end
 end
-document dump_servers
+document dump_apr_servers
     Print server_rec list info
 end
 
@@ -326,3 +335,6 @@ set input-radix 0x10
 set height 0
 set width 0
 set disassembly-flavor intel
+set history filename .gdb_history
+set history save on
+set history expansion on

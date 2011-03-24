@@ -1,7 +1,7 @@
-dot.gdbinit - awesome gdbinit that includes apr support
+gdbinit - awesome gdbinit that includes apr support
 
-dot.vim     - my vim plugins/colors I use.
-dot.vimrc   - my vimrc with a bunch of cool mappings and functions.
+vim     - my vim plugins/colors I use.
+vimrc   - my vimrc with a bunch of cool mappings and functions.
 
 vimrc maps:
 ctrl+a+n:     new horiz window
