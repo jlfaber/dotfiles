@@ -89,3 +89,5 @@ nmap FF zR
 nmap tt :tabnew<CR>
 nmap tp :tabprev<CR>
 nmap tn :tabnext<CR>
+
+set tags=tags;~/.cindex
