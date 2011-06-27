@@ -330,11 +330,13 @@ end
 set confirm off
 set verbose off
 #set prompt \033[31mgdb$ \033[0m
-set output-radix 0x10
-set input-radix 0x10
+#set output-radix 0x10
+#set input-radix 0x10
 set height 0
 set width 0
 set disassembly-flavor intel
 set history filename .gdb_history
 set history save on
 set history expansion on
+directory $cdir:$cwd:~/dbg/Libevent:~/dbg/openssl-0.9.8o/ssl
+handle SIGPIPE nostop noprint pass
