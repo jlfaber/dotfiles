@@ -1,0 +1,107 @@
+set mbox_type   = Maildir
+set folder      = "~/Maildir"
+set mask        = "!^\\.[^.]"
+set mbox        = "~/Maildir"
+set record      = "~/Maildir"
+set postponed   = "+.Drafts"
+set spoolfile   = "~/Maildir"
+
+set hostname    = strcpy.net
+set realname    = "Mark Ellzey"
+set from        = "mthomas@strcpy.net"
+set copy        = yes
+set delete      = yes
+set include     = yes
+set ascii_chars = yes
+
+set charset      = US-ASCII
+set sort         = threads
+set sort_aux     = last-date-received
+set sort_browser = unsorted
+set editor       = "vim +8 -Nc 'set tw=72'"
+set delete       = ask-no
+set move         = no
+set pager_format = "%S [%C/%T] %n (%l) %s"
+set pager_index_lines = 11
+
+set noconfirmappend 
+set envelope_from
+set reverse_alias
+set edit_headers
+unset mark_old
+unset markers
+set pager_stop
+
+mailboxes `echo -n "+ "; find ~/Maildir -maxdepth 1 -type d -name ".*" -printf "+'%f' "`
+
+macro index   c "<change-folder>?<toggle-mailboxes>" "open a different folder"
+macro pager   c "<change-folder>?<toggle-mailboxes>" "open a different folder"
+macro compose A "<attach-message>?<toggle-mailboxes>" "attach message(s) to this message"
+
+ignore *
+unignore  user-agent: x-agent: x-mailer:
+unignore  message-id:
+unignore  from date subject to cc reply-to:
+hdr_order From: Reply-to: To: Cc: Subject: Date: User-Agent: Message-Id:
+
+bind pager <up> previous-line
+bind pager <down> next-line
+
+# colors: white black green magenta blue cyan yellow red default colorx
+
+color normal		  default   default 
+color error		    color124	color233
+color tilde		    color245  default	
+color message		  yellow		color233
+color markers		  yellow		color233
+color attachment	color221	color233
+color search		  color48		color240	
+color status		  color42		color237
+color indicator		color69 color238
+
+# Index
+color tree		color61	default # arrow in threads
+color index		color184	color233	"~N~p"		# message to myself (new)
+color index		color130	default "~p"		# message to myself
+color index		color137	default "~Q"		# messages replied to
+color index		color70		color233	"~P" 		# message from myself
+color index		color220	default ~N		# new
+color index		color208	default ~U		# unread
+color index		color142	default ~O		# old
+color index		color91		color233	~T		# tagged
+color index		color238	color233	"~D(!~p|~p)"	# deleted
+color index		color196	color233	~F		# flagged
+color index		color250	default "~A!~N!~T!~p!~Q!~F!~D!~P"	# the rest
+color index		color216	color233	"~A~N!~T!~p!~Q!~F!~D"		# the rest
+
+color header		color74		color233	"^From"
+color header		color88		color233	"^Date"
+color header		color166	color233	"^(Subject)"
+color header		color244	color233	"^(To|Reply-To|Cc|Bcc):"
+color header		color245	color233	"^(X-Original-To):"
+color header		color96		color233	"^(User-Agent|X-Editor|X-Mailer):"
+color header 		cyan		color233	"^Organization:"
+
+# Body
+color quoted 		color24	  default 
+color quoted1		color28	  default	
+color quoted2		color94	  default	
+color quoted3		color88	  default	
+color signature		color238	color233
+color bold		green		color233
+color underline		color208	color233
+color body		color39		color233	"(finger|ftp|http|news|telnet)://[^ >]*"
+color body		color39		color233	"<URL:[^ ]*>"
+color body		cyan		color233	"www\\.[-.a-z0-9]+\\.[a-z][a-z][a-z]?([-_./~a-z0-9]+)?"
+color body		green		color233	"[[:alnum:]][-+.#_[:alnum:]]*@[-+.[:alnum:]]*[[:alnum:]]"
+color body		color178	color233	"[;:][-o][)/(|]"
+color body		color178	color233	"[;:][)(|]"
+color body		color178	color233	"[*]?((N)?ACK|CU|LOL|SCNR|BRB|BTW|CWYL|FWIW|vbg|GD&R|HTH|HTHBE|IMHO|IMNSHO|IRL|RTFM|ROTFL|ROFL|YMMV)[*]?"
+color body		color178	color233	"[ ][*][^*]*[*][ ]?"
+color body		color178	color233	"[ ]?[*][^*]*[*][ ]"
+color body		green		color233	"(Good signature)"
+color body		color208	color233	"(heipei|hackvalue|Jojo|Gilger|Johannes)"
+color body		color128	color233	'[-.+\w]+@[-.\w]+[^.]' # e-mail addresses
+
+color hdrdefault	color238	color233
+color underline		brightgreen	color233
