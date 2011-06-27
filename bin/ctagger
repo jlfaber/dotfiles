@@ -1,0 +1,3 @@
+#!/bin/bash
+find /home/mthomas -regex ".*\.[cChH]\(pp\)?" -print | xargs ctags -f ~/.cindex.n -a
+mv ~/.cindex.n ~/.cindex
