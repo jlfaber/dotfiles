@@ -1,6 +1,20 @@
 set print pretty on
 display/i $pc
 
+define dumptailq
+	set $tailq_head = $arg0
+	set $ent        = (($tailq_head)->tqh_first)
+
+	while ($ent != (void *)0l)
+		print *$ent
+		set $ent = ($ent)->next.tqe_next
+	end
+end
+document dumptailq
+	Print a sys/queue.h TAILQ structure, assumes TAILQ_ENTRY is next
+	Usage: dumptailq tailq head
+end
+
 define dump_zt_table
 	set $table_addr = $arg0
 	set $name = (char *)(*$table_addr) 
@@ -9,7 +23,6 @@ define dump_zt_table
   printf "tbl name       = %s\n", $name
 end
 
-	
 define dump_apr_lua_stack
 	set $i       = 1
 	set $lua_top = lua_gettop($arg0) 
@@ -17,8 +30,8 @@ define dump_apr_lua_stack
 	while $i <= $lua_top
 		set $typename = "nil"
 		set $t = lua_type($arg0, $i)
-		
-		if $t == 0 
+
+		if $t == 0
 			set $typename = "nil"
 		end
 
@@ -50,16 +63,16 @@ define dump_apr_lua_stack
 			set $typename = "userdata"
 		end
 
-		if $t == 8 
+		if $t == 8
 			set $typename = "thread"
-		end  
+		end
 
-		
+
 		printf "[%d] = %d (%s)\n", $i, lua_type($arg0, $i), $typename 
 		set $i = $i + 1
 	end
 end
-	
+
 
 define dump_apr_table
     set $t = (apr_table_entry_t *)((apr_array_header_t *)$arg0)->elts
@@ -327,6 +340,13 @@ document dump_apr_servers
     Print server_rec list info
 end
 
+define tbt
+	thread apply all bt
+end
+document tbt
+	Print backtrace of all running threads
+end
+
 set confirm off
 set verbose off
 #set prompt \033[31mgdb$ \033[0m
@@ -338,5 +358,7 @@ set disassembly-flavor intel
 set history filename .gdb_history
 set history save on
 set history expansion on
-directory $cdir:$cwd:~/dbg/Libevent:~/dbg/openssl-0.9.8o/ssl
+directory $cwd:$cdir:~/Libevent:~/dbg/openssl-0.9.8o/ssl
 handle SIGPIPE nostop noprint pass
+source ~/.gdb/gdb_mutexinfo.py
+#set disassemble-next-line on
