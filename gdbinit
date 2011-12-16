@@ -360,5 +360,5 @@ set history save on
 set history expansion on
 directory $cwd:$cdir:~/Libevent:~/dbg/openssl-0.9.8o/ssl
 handle SIGPIPE nostop noprint pass
-source ~/.gdb/gdb_mutexinfo.py
+source ~/gdb_mutexinfo.py
 #set disassemble-next-line on

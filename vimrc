@@ -10,6 +10,9 @@ set noea
 set tabstop=4
 set noexpandtab
 
+" I hate folding
+set nofoldenable
+
 if $TERM == 'xterm-256color'
 	set t_Co=256
 	colorscheme jellybeans
@@ -38,7 +41,7 @@ command! -nargs=1 Template call s:Template(<f-args>)
 
 autocmd FileType * set tabstop=2|set shiftwidth=2|set noexpandtab
 autocmd FileType python set nospell tabstop=4|set shiftwidth=4|set expandtab
-au BufNewFile,BufRead *.tac setfiletype python 
+au BufNewFile,BufRead *.tac setfiletype python
 
 augroup filetype
         au!
@@ -62,8 +65,8 @@ augroup END
 set viminfo='10,\"100,:20,%,n~/.viminfo
     au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm'\"")|else|exe "norm $"|endif|endif
 
-function Toggle_numbers() 
-	if &number 
+function Toggle_numbers()
+	if &number
 		set nonumber
 	else
 		set number
@@ -76,18 +79,21 @@ nmap = :res +1<CR>
 nmap - :res -1<CR>
 nmap <C-a><C-n> :new<CR>
 nmap <C-a><C-v> :vnew<CR>
-nmap <Tab><Tab> :winc w<CR> 
+nmap <Tab><Tab> :winc w<CR>
 nmap <F3> :call Toggle_numbers()<CR>
 nmap <S-s><S-s> :SessionSave<CR>
 nmap <F4> :SessionOpenLast<CR>
 nmap <S-s><S-l> :SessionList<CR>
 nmap <F5> :silent1,$!uncrustify -q<CR><CR>
 nmap <C-d><C-d> :Dox<CR>
-nmap ff zA 
+nmap ff zA
 nmap FF zR
 
 nmap tt :tabnew<CR>
 nmap tp :tabprev<CR>
 nmap tn :tabnext<CR>
+nmap cc :e ++ff=dos<CR>
 
-set tags=tags;~/.cindex
+set tags=tags;~/
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
