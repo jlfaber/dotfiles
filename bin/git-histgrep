@@ -1,0 +1,2 @@
+#!/bin/bash
+git grep "$1" $(git log -g --pretty=format:%h)
