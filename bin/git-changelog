@@ -78,7 +78,6 @@ for line in fin:
     # If this line is hit all of the files have been stored for this commit
     elif re.search('files changed', line) >= 0:
         filesFound = True
-        continue
     # Collect the files for this commit. FIXME: Still need to add +/- to files
     elif authorFound & dateFound & messageFound:
         fileList = re.split(' \| ', line, 2)
