@@ -26,7 +26,10 @@ messageNL = False
 files = ""
 prevAuthorLine = ""
 
-fout.write("v%s\n" % new_tag)
+if new_tag[0] != 'v':
+    new_tag = 'v' + new_tag
+
+fout.write("%s\n" % new_tag)
 fout.write("=====================================\n")
 
 # The main part of the loop
@@ -105,14 +108,14 @@ for line in fin:
         commit = ""
         while i < len(commitLine):
             if len(commitLine) < i + 78:
-                commit = commit + "\n  " + commitLine[i:len(commitLine)]
+                commit = commit + "\n  " + commitLine[i:len(commitLine)].strip()
                 break
             index = commitLine.rfind(' ', i, i+78)
             if index > i:
-                commit = commit + "\n  " + commitLine[i:index]
+                commit = commit + "\n  " + commitLine[i:index].strip()
                 i = index+1
             else:
-                commit = commit + "\n  " + commitLine[i:78]
+                commit = commit + "\n  " + commitLine[i:78].strip()
                 i = i+79
 
         # Write out the commit line
