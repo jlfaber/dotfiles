@@ -34,8 +34,9 @@ fout.write("=====================================\n")
 
 # The main part of the loop
 for line in fin:
+
     # The commit line marks the start of a new commit object.
-    if string.find(line, 'commit') >= 0:
+    if string.find(line, 'commit') == 0:
         # Start all over again...
         authorFound = False
         dateFound = False
@@ -46,13 +47,13 @@ for line in fin:
         files = ""
         continue
     # Match the author line and extract the part we want
-    elif re.match('Author:', line) >=0:
+    elif re.match('^Author:', line):
         authorList = re.split(': ', line, 1)
         author = authorList[1]
         author = author[0:len(author)-1]
         authorFound = True
     # Match the date line
-    elif re.match('Date:', line) >= 0:
+    elif re.match('^Date:', line):
         dateList = re.split(':   ', line, 1)
         date = dateList[1]
         date = date[0:len(date)-1]
